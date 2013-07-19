@@ -1,0 +1,28 @@
+{{name}}
+-------------------------------------------------------------------------
+
+{{description}}
+
+
+{{#each methods}}
+
+
+.. http:{{ lower requestMethod}}:: {{path}}
+
+    {{description}}
+
+    {{#each urlparameters}}
+    :param {{name}}: {{description}}
+    {{/each}}
+
+    {{#each queryParameters}}
+    :queryparameter {{name}}: {{description}}
+    {{/each}}
+    
+    {{#if bodyobject}}
+    :jsonparameter {{bodyobject.object}}: :ref:`{{bodyobject.object}}-rest`
+    {{/if}}
+
+    ReturnValue :  :ref:`{{response.object}}-rest`
+    
+{{/each}}
