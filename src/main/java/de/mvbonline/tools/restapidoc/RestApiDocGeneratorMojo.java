@@ -212,7 +212,7 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
                     }
                 }
 
-                ApiResponseObjectDoc apiResponseObjectDoc = new ApiResponseObjectDoc(m.getReturnType().getName());
+                ApiResponseObjectDoc apiResponseObjectDoc = new ApiResponseObjectDoc(m.getReturnType().getSimpleName());
                 apiMethod.setResponse(apiResponseObjectDoc);
                 result.add(apiMethod);
                 ClassDescription modelObjectDescription = apiDescriptionsFinder.getClassDescription(m.getReturnType().getName());
