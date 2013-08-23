@@ -2,7 +2,7 @@ package de.mvbonline.tools.restapidoc;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
