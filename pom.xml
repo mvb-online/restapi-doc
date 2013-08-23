@@ -9,7 +9,7 @@
 
 	<groupId>de.mvbonline</groupId>
 	<artifactId>restapi-doc</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
     <name>RESTful API Doc Generator</name>
@@ -98,6 +98,6 @@ Output is reStructuredText for sphinx using sphinxcontrib.httpdomain</descriptio
 		<connection>scm:git:git@github.com:mvb-online/restapi-doc.git</connection>
 		<developerConnection>scm:git:git@github.com:mvb-online/restapi-doc.git</developerConnection>
 		<url>https://github.com/mvb-online/restapi-doc</url>
-	  <tag>restapi-doc-0.0.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 </project>
