@@ -26,7 +26,18 @@ Output is reStructuredText for sphinx using sphinxcontrib.httpdomain</descriptio
 		<spring.version>3.2.3.RELEASE</spring.version>
 		<jackson.version>2.2.2</jackson.version>
 	</properties>
-
+	<build>
+		<plugins>
+			<plugin>
+		    	<groupId>org.apache.maven.plugins</groupId>
+		    	<artifactId>maven-release-plugin</artifactId>
+		    	<version>2.4.1</version>
+		    	<configuration>
+		    		<pushChanges>false</pushChanges>
+		    	</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
