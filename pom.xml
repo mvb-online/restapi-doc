@@ -57,7 +57,7 @@ Output is reStructuredText for sphinx using sphinxcontrib.httpdomain</descriptio
 		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
-			<version>0.9.8</version>
+			<version>0.9.9-RC1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.jknack</groupId>
@@ -91,7 +91,11 @@ Output is reStructuredText for sphinx using sphinxcontrib.httpdomain</descriptio
 			<scope>system</scope>
 			<systemPath>${java.home}/../lib/tools.jar</systemPath>
 		</dependency>
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 	</dependencies>
 
 	<scm>

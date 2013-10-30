@@ -179,8 +179,9 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
                 apiMethod.setConsumes(Arrays.asList(rMappingAnno.consumes()));
                 apiMethod.setProduces(Arrays.asList(rMappingAnno.produces()));
                 apiMethod.setPath(basePath + rMappingAnno.value()[0]);
-                apiMethod.setRequestMethod(rMappingAnno.method()[0]);
-
+                if(rMappingAnno.method().length > 0) {
+                    apiMethod.setRequestMethod(rMappingAnno.method()[0]);
+                }
                 MethodDescription methodDescription = apiDescriptionsFinder.getMethodDescription(classDescription, m.getName());
                 apiMethod.setDescription(methodDescription != null ? methodDescription.getDescription() : "");
 
@@ -207,7 +208,7 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
 
                             ClassDescription modelObjectDescription = apiDescriptionsFinder.getClassDescription(paramTypes[i].getName());
                             modelObjects.add(new ApiObjectDoc(paramTypes[i].getSimpleName(), modelObjectDescription != null ? modelObjectDescription
-                                    .getDescription() : "",paramTypes[i].getName()));
+                                    .getDescription() : "", paramTypes[i].getName(), paramTypes[i].isPrimitive()));
                         }
                     }
                 }
@@ -217,7 +218,7 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
                 result.add(apiMethod);
                 ClassDescription modelObjectDescription = apiDescriptionsFinder.getClassDescription(m.getReturnType().getName());
                 modelObjects.add(new ApiObjectDoc(m.getReturnType().getSimpleName(), modelObjectDescription != null ? modelObjectDescription
-                        .getDescription() : "",m.getReturnType().getName()));
+                        .getDescription() : "",m.getReturnType().getName(), m.getReturnType().isPrimitive()));
             }
         }
 

@@ -10,11 +10,15 @@ public class ApiObjectDoc {
 
     private String description;
     private List<ApiObjectFieldDoc> fields;
-    public ApiObjectDoc(String name, String description, String modelClass) {
+
+    private boolean primitiv;
+    
+    public ApiObjectDoc(String name, String description, String modelClass, boolean primitiv) {
         super();
         this.name = name;
         this.description = description;
         this.modelClass = modelClass;
+        this.primitiv = primitiv;
     }
 
     public void addField(ApiObjectFieldDoc field) {
@@ -58,12 +62,16 @@ public class ApiObjectDoc {
         return name;
     }
 
-    
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
+    }
+
+    
+    public boolean isPrimitiv() {
+        return primitiv;
     }
 }
