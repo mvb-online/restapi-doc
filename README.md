@@ -77,6 +77,10 @@ Domain models in Parameters or return value are parsed with Jackson and the resu
 
 - [ ] Add Exeptions
 - [ ] Add HTTPStatuscodes
-- [ ] Support nested domain models
+- [x] Support nested domain models
 - [x] Add annotations of fields
-- [ ] Add Blacklist for Annotations, Classes, Methods and Fields - already partly implemented, blacklist.xml is not yet definable for each generated module
+- [x] Add Blacklist for Annotations, Classes, Methods and Fields
+
+Nested Domain models are now retrieved via recursion, this means, that the Blacklists are very big, because we needed
+to blacklist all standard java objects. This should be avoided by probably using the @Entity annotation and/or using
+package names on Classes as well.
