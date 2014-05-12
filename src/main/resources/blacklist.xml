@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<blacklist>
+  <annotations>
+    <annotation>OneToMany</annotation>
+    <annotation>OneToOne</annotation>
+    <annotation>ManyToOne</annotation>
+    <annotation>JoinColumn</annotation>
+    <annotation>Index</annotation>
+  </annotations>
+  <classes>
+    <class>void</class>
+    <class>String</class>
+    <class>Page</class>
+    <class>AssetFileHistory[]</class>
+    <class>IdResponse</class>
+    <class>BatchInfo</class>
+  </classes>
+</blacklist>

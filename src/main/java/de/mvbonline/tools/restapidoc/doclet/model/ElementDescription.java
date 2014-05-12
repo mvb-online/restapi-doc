@@ -1,6 +1,7 @@
 package de.mvbonline.tools.restapidoc.doclet.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,8 +20,8 @@ public class ElementDescription implements Serializable {
     @XmlAttribute
     private String name;
 
-    @XmlAttribute
-    private String onixCodelist;
+    @XmlElement
+    private List<Annotation> annotations;
 
     @XmlElement
     private String description;
@@ -33,11 +34,6 @@ public class ElementDescription implements Serializable {
         this();
         this.name = name;
         this.description = description;
-    }
-
-    public ElementDescription(String name, String description, String onixCodelist) {
-        this(name, description);
-        this.onixCodelist = onixCodelist;
     }
 
     public String getDescription() {
@@ -56,11 +52,11 @@ public class ElementDescription implements Serializable {
         this.name = name;
     }
 
-    public String getOnixCodelist() {
-        return onixCodelist;
+    public List<Annotation> getAnnotations() {
+        return annotations;
     }
 
-    public void setOnixCodelist(String onixCodelist) {
-        this.onixCodelist = onixCodelist;
+    public void setAnnotations(List<Annotation> annotations) {
+        this.annotations = annotations;
     }
 }

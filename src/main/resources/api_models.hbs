@@ -6,8 +6,13 @@
 
 
 {{#each fields}}
-{{name}} : {{type}} : Multiple {{multiple}} 
+{{name}} : {{type}} {{#if multiple}}: Repeatable{{/if}}
     {{description}}
+
+    {{#each annotations}}
+    @{{this}}
+
+    {{/each}}
 {{/each}}
 
 

@@ -67,6 +67,7 @@ public class Jackson2ApiObjectDoc {
                         apiField.setName(propertyDefinition.getName());
                         apiField.setType(propertyDefinition.getField().getRawType().getSimpleName());
                         apiField.setDescription(apiDescriptionFinder.getFieldDescription(classDescription, propertyDefinition.getName()));
+                        apiField.setAnnotations(apiDescriptionFinder.getFieldAnnotations(classDescription, propertyDefinition.getName()));
 
                         if (Collection.class.isAssignableFrom(propertyDefinition.getField().getRawType())) {
                             apiField.setMultiple(true);
