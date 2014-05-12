@@ -5,12 +5,7 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import com.sun.javadoc.ClassDoc;
-import com.sun.javadoc.FieldDoc;
-import com.sun.javadoc.MethodDoc;
-import com.sun.javadoc.ParamTag;
-import com.sun.javadoc.RootDoc;
-import com.sun.javadoc.Tag;
+import com.sun.javadoc.*;
 
 import de.mvbonline.tools.restapidoc.doclet.model.ApiDescription;
 import de.mvbonline.tools.restapidoc.doclet.model.ClassDescription;
@@ -32,9 +27,25 @@ public class JavadocToXMLDoclet {
             doc.setFullClassName(c.qualifiedName());
             doc.setName(c.name());
             doc.setDescription(c.commentText());
+
             for (FieldDoc f : c.fields(false)) {
-                doc.addProperty(new ElementDescription(f.name(), f.commentText()));
+                ElementDescription ed = new ElementDescription(f.name(), f.commentText());
+
+                System.out.println("fetched and initialized ed");
+                System.out.println("ed: " + ed.toString());
+
+                if (f.annotations() != null && f.annotations().length > 0) {
+                    for (AnnotationDesc ad : f.annotations()) {
+                        if (ad.annotationType().name().equals("OnixCodelist")) {
+                            String codelist = ad.elementValues()[0].value().toString();
+                            ed.setOnixCodelist(codelist);
+                        }
+                    }
+                }
+
+                doc.addProperty(ed);
             }
+
             for (MethodDoc m : c.methods(false)) {
                 MethodDescription mdoc = new MethodDescription();
                 mdoc.setName(m.name());

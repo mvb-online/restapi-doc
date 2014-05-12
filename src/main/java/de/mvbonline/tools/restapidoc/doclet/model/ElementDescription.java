@@ -19,6 +19,9 @@ public class ElementDescription implements Serializable {
     @XmlAttribute
     private String name;
 
+    @XmlAttribute
+    private String onixCodelist;
+
     @XmlElement
     private String description;
 
@@ -27,9 +30,14 @@ public class ElementDescription implements Serializable {
     }
 
     public ElementDescription(String name, String description) {
-        super();
+        this();
         this.name = name;
         this.description = description;
+    }
+
+    public ElementDescription(String name, String description, String onixCodelist) {
+        this(name, description);
+        this.onixCodelist = onixCodelist;
     }
 
     public String getDescription() {
@@ -46,5 +54,13 @@ public class ElementDescription implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOnixCodelist() {
+        return onixCodelist;
+    }
+
+    public void setOnixCodelist(String onixCodelist) {
+        this.onixCodelist = onixCodelist;
     }
 }
