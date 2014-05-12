@@ -10,9 +10,40 @@
   <classes>
     <class>void</class>
     <class>String</class>
+    <class>Float</class>
+    <class>Collection</class>
+    <class>Calendar</class>
+    <class>Long</class>
+    <class>Enumeration</class>
+    <class>RecordSource[]</class>
+    <class>Class[]</class>
+    <class>byte[]</class>
+    <class>Class</class>
+    <class>String[]</class>
+    <class>Constructor[]</class>
+    <class>Iterator</class>
+    <class>Certificate[]</class>
+    <class>CharSequence</class>
+    <class>BigInteger</class>
+    <class>Boolean</class>
+    <class>Sort</class>
+    <class>ListIterator</class>
+    <class>BigInteger[]</class>
+    <class>BigDecimal[]</class>
+    <class>Object[]</class>
+    <class>Integer</class>
+    <class>Direction[]</class>
+    <class>char[]</class>
+    <class>Order</class>
     <class>Page</class>
-    <class>AssetFileHistory[]</class>
-    <class>IdResponse</class>
-    <class>BatchInfo</class>
+    <class>BigDecimal</class>
+    <class>List</class>
+    <class>Set</class>
+    <class>Object</class>
   </classes>
+  <methods>
+    <method>valueOf</method>
+    <method>toString</method>
+    <method>equals</method>
+  </methods>
 </blacklist>

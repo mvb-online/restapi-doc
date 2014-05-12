@@ -16,9 +16,20 @@ public class BlacklistLoader {
 
     private Blacklist blacklist = new Blacklist();
 
-    public BlacklistLoader() throws IOException {
+    private static BlacklistLoader loader = new BlacklistLoader();
+
+    private BlacklistLoader() {
         super();
-        loadBlacklist();
+        try {
+            loadBlacklist();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static BlacklistLoader getInstance() {
+        return loader;
     }
 
     private void loadBlacklist() throws IOException {

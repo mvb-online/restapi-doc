@@ -53,7 +53,15 @@ public class Jackson2ApiObjectDoc {
                     .constructType(resolvedType.getErasedType()));
 
             MemberResolver memberResolver = new MemberResolver(typeResolver);
-            ResolvedTypeWithMembers resolvedMemberWithMembers = memberResolver.resolve(resolvedType, null, null);
+            ResolvedTypeWithMembers resolvedMemberWithMembers;
+            try {
+               resolvedMemberWithMembers = memberResolver.resolve(resolvedType, null, null);
+            }
+            catch (ArrayIndexOutOfBoundsException aioobex) {
+                // TODO this is to avoid an AIOOBEX in memberResolver, should this get fixed upstream?
+                return;
+            }
+
             Map<String, BeanPropertyDefinition> propertyLookup = uniqueIndex(beanDescription.findProperties(), beanPropertyByInternalName());
 
             ClassDescription classDescription = apiDescriptionFinder.getClassDescription(model.getModelClass());

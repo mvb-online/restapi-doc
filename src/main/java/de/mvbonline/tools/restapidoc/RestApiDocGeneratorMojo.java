@@ -86,6 +86,7 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
     private File outputtFolder;
 
     private Set<ApiObjectDoc> modelObjects = new HashSet<ApiObjectDoc>();
+    private Set<String> recursionHelper = new HashSet<String>();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
@@ -129,7 +130,7 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
             }
         }
         if(objectMapper == null) {
-            objectMapper= new ObjectMapper();
+            objectMapper = new ObjectMapper();
             getLog().info("Using default ObjectMapper");
         }
         
@@ -207,8 +208,7 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
                             apiMethod.setBodyobject(new ApiBodyObjectDoc(paramTypes[i].getSimpleName()));
 
                             ClassDescription modelObjectDescription = apiDescriptionsFinder.getClassDescription(paramTypes[i].getName());
-                            modelObjects.add(new ApiObjectDoc(paramTypes[i].getSimpleName(), modelObjectDescription != null ? modelObjectDescription
-                                    .getDescription() : "", paramTypes[i].getName(), paramTypes[i].isPrimitive()));
+                            this.addToModelObjects(paramTypes[i], modelObjectDescription);
                         }
                     }
                 }
@@ -217,15 +217,37 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
                 apiMethod.setResponse(apiResponseObjectDoc);
                 result.add(apiMethod);
                 ClassDescription modelObjectDescription = apiDescriptionsFinder.getClassDescription(m.getReturnType().getName());
-                modelObjects.add(new ApiObjectDoc(m.getReturnType().getSimpleName(), modelObjectDescription != null ? modelObjectDescription
-                        .getDescription() : "",m.getReturnType().getName(), m.getReturnType().isPrimitive()));
+                this.addToModelObjects(m.getReturnType(), modelObjectDescription);
             }
         }
 
         return result;
     }
 
+    public void addToModelObjects(Class<?> clazz, ClassDescription modelObjectDescription) {
+        if (!BlacklistLoader.getInstance().classInBlacklist(clazz.getSimpleName()) &&
+            !BlacklistLoader.getInstance().classInBlacklist(clazz.getName())) {
+            modelObjects.add(new ApiObjectDoc(clazz.getSimpleName(), modelObjectDescription != null ? modelObjectDescription
+                .getDescription() : "", clazz.getName(), clazz.isPrimitive()));
+        }
 
+        if (!clazz.isPrimitive()) {
+            if (this.recursionHelper.contains(clazz.getSimpleName())) {
+                return;
+            }
+
+            this.recursionHelper.add(clazz.getSimpleName());
+
+            for (Method m : clazz.getMethods()) {
+                if (!BlacklistLoader.getInstance().methodInBlacklist(m.getName()) &&
+                    !BlacklistLoader.getInstance().classInBlacklist(m.getReturnType().getSimpleName()) &&
+                    !m.getReturnType().isPrimitive()) {
+                    ClassDescription tmpModelObjectDescription = apiDescriptionsFinder.getClassDescription(m.getReturnType().getName());
+                    this.addToModelObjects(m.getReturnType(), tmpModelObjectDescription);
+                }
+            }
+        }
+    }
 
 
     /**

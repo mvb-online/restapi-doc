@@ -21,8 +21,8 @@ public class ApiDescriptionFinder {
     private ApiDescription apiDescriptions;
 
     private BlacklistLoader blacklistLoader;
-    
-    
+
+
     public ApiDescriptionFinder() throws IOException{
         super();
         collectApiDescriptions();
@@ -46,7 +46,7 @@ public class ApiDescriptionFinder {
     }
 
     private void initializeBlacklistLoader() throws IOException {
-        this.blacklistLoader = new BlacklistLoader();
+        this.blacklistLoader = BlacklistLoader.getInstance();
     }
     
 
