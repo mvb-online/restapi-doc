@@ -15,31 +15,55 @@
     <class>Calendar</class>
     <class>Long</class>
     <class>Enumeration</class>
-    <class>RecordSource[]</class>
-    <class>Class[]</class>
-    <class>byte[]</class>
     <class>Class</class>
-    <class>String[]</class>
-    <class>Constructor[]</class>
     <class>Iterator</class>
-    <class>Certificate[]</class>
     <class>CharSequence</class>
     <class>BigInteger</class>
     <class>Boolean</class>
     <class>Sort</class>
     <class>ListIterator</class>
-    <class>BigInteger[]</class>
-    <class>BigDecimal[]</class>
-    <class>Object[]</class>
     <class>Integer</class>
     <class>Direction[]</class>
-    <class>char[]</class>
     <class>Order</class>
     <class>Page</class>
     <class>BigDecimal</class>
     <class>List</class>
     <class>Set</class>
     <class>Object</class>
+    <class>URL</class>
+    <class>URI</class>
+    <class>FileNameMap</class>
+    <class>CertPath</class>
+    <class>Certificate</class>
+    <class>Locale</class>
+    <class>Timestamp</class>
+    <class>TypeVariable</class>
+    <class>Principal</class>
+    <class>Method</class>
+    <class>InputStream</class>
+    <class>OutputStream</class>
+    <class>GenericDeclaration</class>
+    <class>Date</class>
+    <class>Permission</class>
+    <class>Timezone</class>
+    <class>PermissionCollection</class>
+    <class>Package</class>
+    <class>CodeSigner</class>
+    <class>ClassLoader</class>
+    <class>URLConnection</class>
+    <class>Annotation[]</class>
+    <class>Annotation</class>
+    <class>ProtectionDomain</class>
+    <class>Character</class>
+    <class>PublicKey</class>
+    <class>Constructor</class>
+    <class>Field</class>
+    <class>Direction</class>
+    <class>Enum</class>
+    <class>CodeSource</class>
+    <class>TimeZone</class>
+    <class>byte</class>
+    <class>char</class>
   </classes>
   <methods>
     <method>valueOf</method>

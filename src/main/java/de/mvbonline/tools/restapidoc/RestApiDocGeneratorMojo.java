@@ -5,13 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -105,7 +103,8 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
 
             fillModelFields();
 
-            generateFile(modelObjects, "api_models", "models");
+            SortedSet<ApiObjectDoc> sortedObjects = new TreeSet<ApiObjectDoc>(modelObjects);
+            generateFile(sortedObjects, "api_models", "models");
         }
         catch (Exception e) {
             throw new MojoExecutionException("Failed", e);
@@ -225,6 +224,10 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
     }
 
     public void addToModelObjects(Class<?> clazz, ClassDescription modelObjectDescription) {
+        if (clazz.isArray()) {
+            clazz = clazz.getComponentType();
+        }
+
         if (!BlacklistLoader.getInstance().classInBlacklist(clazz.getSimpleName()) &&
             !BlacklistLoader.getInstance().classInBlacklist(clazz.getName())) {
             modelObjects.add(new ApiObjectDoc(clazz.getSimpleName(), modelObjectDescription != null ? modelObjectDescription
@@ -239,11 +242,28 @@ public class RestApiDocGeneratorMojo extends AbstractMojo {
             this.recursionHelper.add(clazz.getSimpleName());
 
             for (Method m : clazz.getMethods()) {
-                if (!BlacklistLoader.getInstance().methodInBlacklist(m.getName()) &&
-                    !BlacklistLoader.getInstance().classInBlacklist(m.getReturnType().getSimpleName()) &&
-                    !m.getReturnType().isPrimitive()) {
-                    ClassDescription tmpModelObjectDescription = apiDescriptionsFinder.getClassDescription(m.getReturnType().getName());
-                    this.addToModelObjects(m.getReturnType(), tmpModelObjectDescription);
+                Class returnType = m.getReturnType();
+
+                Type genericReturnType = m.getGenericReturnType();
+
+                if (genericReturnType instanceof ParameterizedType) {
+                    ParameterizedType type = (ParameterizedType)genericReturnType;
+                    Type[] typeArgs = type.getActualTypeArguments();
+
+                    for (Type typeArg : typeArgs) {
+                        if (typeArg instanceof Class) {
+                            returnType = (Class)typeArg;
+                            break;
+                        }
+                    }
+                }
+
+                if (!BlacklistLoader.getInstance().classInBlacklist(returnType.getSimpleName()) &&
+                     !BlacklistLoader.getInstance().classInBlacklist(returnType.getName()) &&
+                    !returnType.isPrimitive()) {
+
+                    ClassDescription tmpModelObjectDescription = apiDescriptionsFinder.getClassDescription(returnType.getName());
+                    this.addToModelObjects(returnType, tmpModelObjectDescription);
                 }
             }
         }

@@ -1,19 +1,28 @@
 {{#each this}}
 
-{{header name}}
+.. _{{header name}}
+=================
 
 {{description}}
 
-
 {{#each fields}}
-{{name}} : {{type}} {{#if multiple}}: Repeatable{{/if}}
+- {{name}} : {{type}}_ {{#if multiple}}: Repeatable{{/if}}
+
     {{description}}
 
     {{#each annotations}}
     @{{this}}
 
     {{/each}}
-{{/each}}
-
 
 {{/each}}
+
+{{/each}}
+
+.. _String:
+.. _Boolean:
+.. _Integer:
+.. _Long:
+.. _Calendar:
+.. _BigDecimal:
+.. _Float:
